@@ -11,11 +11,14 @@ namespace SpinDreidelApp.Models
     {
         public DreidelSide(char symbol, string name, string instructions, string image_Url)
         {
+            TimeCreated = DateTime.Now;
             Symbol = symbol;
             Name = name;
             Instructions = instructions;
             Image_Url = image_Url;
         }
+
+        public DateTime TimeCreated { get; set; }
 
         public char Symbol { get; private set; }
 

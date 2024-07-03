@@ -9,7 +9,7 @@ var host = new HostBuilder()
     {
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
-        services.AddTransient<IDreidelService, DreidelService>();    
+        services.AddSingleton<IDreidelService, DreidelService>();    
     })
     .Build();
 
