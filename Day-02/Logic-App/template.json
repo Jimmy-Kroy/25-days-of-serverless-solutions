@@ -1,0 +1,338 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workflows_task_reminder_name": {
+            "defaultValue": "task-reminder",
+            "type": "String"
+        },
+        "connections_outlook_externalid": {
+            "defaultValue": "/subscriptions/4c13eca6-b880-4717-9d63-97b7903da353/resourceGroups/learn-logic-app-rg/providers/Microsoft.Web/connections/outlook",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Logic/workflows",
+            "apiVersion": "2017-07-01",
+            "name": "[parameters('workflows_task_reminder_name')]",
+            "location": "westeurope",
+            "properties": {
+                "state": "Enabled",
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {},
+                            "type": "Object"
+                        }
+                    },
+                    "triggers": {
+                        "Recurrence": {
+                            "recurrence": {
+                                "frequency": "Month",
+                                "interval": 12,
+                                "startTime": "2024-12-13T07:00:00Z",
+                                "timeZone": "W. Europe Standard Time"
+                            },
+                            "evaluatedRecurrence": {
+                                "frequency": "Month",
+                                "interval": 12,
+                                "startTime": "2024-12-13T07:00:00Z",
+                                "timeZone": "W. Europe Standard Time"
+                            },
+                            "type": "Recurrence"
+                        }
+                    },
+                    "actions": {
+                        "Delay_until": {
+                            "runAfter": {
+                                "Send_email_01": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:25:00Z"
+                                }
+                            }
+                        },
+                        "Delay_until_2": {
+                            "runAfter": {
+                                "Send_email_02": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:30:00Z"
+                                }
+                            }
+                        },
+                        "Delay_until_3": {
+                            "runAfter": {
+                                "Send_email_03": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:35:00Z"
+                                }
+                            }
+                        },
+                        "Delay_until_4": {
+                            "runAfter": {
+                                "Send_email_04": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:39:00Z"
+                                }
+                            }
+                        },
+                        "Delay_until_5": {
+                            "runAfter": {
+                                "Send_email_05": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:40:00Z"
+                                }
+                            }
+                        },
+                        "Delay_until_6": {
+                            "runAfter": {
+                                "Send_email_06": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:45:00Z"
+                                }
+                            }
+                        },
+                        "Delay_until_7": {
+                            "runAfter": {
+                                "Send_email_07": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Wait",
+                            "inputs": {
+                                "until": {
+                                    "timestamp": "2024-12-13T07:49:00Z"
+                                }
+                            }
+                        },
+                        "Send_email_04": {
+                            "runAfter": {
+                                "Delay_until_3": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Deliver the coffee to Mom and Dad",
+                                    "Body": "<p><b><strong>Deliver the coffee to Mom and Dad</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_05": {
+                            "runAfter": {
+                                "Delay_until_4": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Return to kitchen, fill two more cups",
+                                    "Body": "<p><b><strong>Return to kitchen, fill two more cups</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_06": {
+                            "runAfter": {
+                                "Delay_until_5": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Relight the candles",
+                                    "Body": "<p><b><strong>Relight the candles</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_07": {
+                            "runAfter": {
+                                "Delay_until_6": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Deliver the coffee to Sister and Brother",
+                                    "Body": "<p><b><strong>Deliver the coffee to Sister and Brother</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_08": {
+                            "runAfter": {
+                                "Delay_until_7": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Return to kitchen, take a break!",
+                                    "Body": "<p><b><strong>Return to kitchen, take a break!</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_01": {
+                            "runAfter": {},
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Start the coffee, set out 4 cups",
+                                    "Body": "<p><b><strong>Start the coffee, set out 4 cups</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_02": {
+                            "runAfter": {
+                                "Delay_until": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Pour two cups",
+                                    "Body": "<p><b><strong>Pour two cups</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        },
+                        "Send_email_03": {
+                            "runAfter": {
+                                "Delay_until_2": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "ApiConnection",
+                            "inputs": {
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['outlook']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "body": {
+                                    "To": "jimmy.kroy1976@gmail.com",
+                                    "Subject": "Light the candles",
+                                    "Body": "<p><b><strong>Light the candles</strong></b></p>",
+                                    "Importance": "Normal"
+                                },
+                                "path": "/v2/Mail"
+                            }
+                        }
+                    },
+                    "outputs": {}
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "outlook": {
+                                "id": "/subscriptions/4c13eca6-b880-4717-9d63-97b7903da353/providers/Microsoft.Web/locations/westeurope/managedApis/outlook",
+                                "connectionId": "[parameters('connections_outlook_externalid')]",
+                                "connectionName": "outlook"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
