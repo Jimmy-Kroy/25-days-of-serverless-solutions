@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SpinDreidelApp.Models
 {
-    internal class DreidelSide
+    public class DreidelSide
     {
         public DreidelSide(char symbol, string name, string instructions, string image_Url)
         {
-            Symbol = Symbol;
+            Symbol = symbol;
             Name = name;
             Instructions = instructions;
             Image_Url = image_Url;

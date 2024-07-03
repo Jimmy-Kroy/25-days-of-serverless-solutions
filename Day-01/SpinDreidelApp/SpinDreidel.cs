@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using SpinDreidelApp.Models;
 using SpinDreidelApp.Services;
+using System.Text.Json;
 
 namespace SpinDreidelApp
 {
@@ -21,8 +23,13 @@ namespace SpinDreidelApp
         [Function("SpinDreidel")]
         public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
-            return new OkObjectResult("Welcome to Azure Functions!");
+            _logger.LogInformation("SpinDreidel HTTP trigger function processed a request.");
+            DreidelSide dreidelSide = _dreidelService.Spin();
+
+            string jsonString = JsonSerializer.Serialize(dreidelSide);
+            _logger.LogInformation(jsonString);
+
+            return new OkObjectResult(jsonString);
         }
     }
 }
