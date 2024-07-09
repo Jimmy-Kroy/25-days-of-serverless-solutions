@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace GitHubWebhookTriggerApp
 {
@@ -52,6 +53,30 @@ namespace GitHubWebhookTriggerApp
             }
 
             return new OkObjectResult("Successfully processed Github push event!");
+        }
+
+        [Function("GetImages")]
+        public async Task<IActionResult> GetImages([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
+        {
+            const string query = "select* from c";
+            string jsonString;
+
+            _logger.LogInformation("GetImages received a request.");
+
+            IEnumerable<AnimalImage> images = await _cosmosDbService.GetMultipleAsync(query);
+
+            if (images.Any())
+            {
+                _logger.LogInformation($"{images.Count()} images retrieved from the database.");
+                jsonString = JsonSerializer.Serialize(images);
+            }
+            else
+            {
+                _logger.LogInformation("No images found in the database.");
+                jsonString = "No images found in the database.";
+            }
+
+            return new OkObjectResult(jsonString);
         }
     }
 }
