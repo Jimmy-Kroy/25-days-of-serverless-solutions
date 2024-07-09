@@ -1,0 +1,34 @@
+[
+    {
+        "id": "8b91c25f-a4ba-438b-b45c-d206cc84bb6e",
+        "imageUrl": "https://github.com/Jimmy-Kroy/25-days-of-serverless-solutions/blob/master/Day-03/Img/cat-01.png",
+        "author": "Jimmy Kroy",
+        "_rid": "8mIGAKVtUysCAAAAAAAAAA==",
+        "_self": "dbs/8mIGAA==/colls/8mIGAKVtUys=/docs/8mIGAKVtUysCAAAAAAAAAA==/",
+        "_etag": "\"0f00ca50-0000-1500-0000-668c334e0000\"",
+        "_attachments": "attachments/",
+        "_ts": 1720464206
+    },
+	{
+        "id": "267e7246-050c-4bbb-b70e-2f2414cb34a4",
+        "creation_time": "2024-07-09T17:07:46.6761577+02:00",
+        "image_url": "https://github.com/Jimmy-Kroy/25-days-of-serverless-solutions/blob/master/Day-03/Img/cat-02.png",
+        "author": "Jimmy-Kroy",
+        "_rid": "8mIGAKVtUysKAAAAAAAAAA==",
+        "_self": "dbs/8mIGAA==/colls/8mIGAKVtUys=/docs/8mIGAKVtUysKAAAAAAAAAA==/",
+        "_etag": "\"1200c731-0000-1500-0000-668d52420000\"",
+        "_attachments": "attachments/",
+        "_ts": 1720537666
+    },
+    {
+        "id": "06af5107-0b7d-42e4-b330-61ffbeef56d9",
+        "creation_time": "2024-07-09T17:07:46.6761742+02:00",
+        "image_url": "https://github.com/Jimmy-Kroy/25-days-of-serverless-solutions/blob/master/Day-03/Img/cat-03.png",
+        "author": "Jimmy-Kroy",
+        "_rid": "8mIGAKVtUysLAAAAAAAAAA==",
+        "_self": "dbs/8mIGAA==/colls/8mIGAKVtUys=/docs/8mIGAKVtUysLAAAAAAAAAA==/",
+        "_etag": "\"1200c831-0000-1500-0000-668d52420000\"",
+        "_attachments": "attachments/",
+        "_ts": 1720537666
+    }
+]
