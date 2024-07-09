@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using System.ComponentModel;
 
 namespace GitHubWebhookTriggerApp.Services
 {
@@ -23,14 +24,45 @@ namespace GitHubWebhookTriggerApp.Services
         {
             _logger = logger;
             _cosmosDbSettings = cosmosDbSettings.Value;
-            _cosmosClient = new CosmosClient(_cosmosDbSettings.EndpointUrl, _cosmosDbSettings.PrimaryKey);
+            _cosmosClient = new CosmosClient(_cosmosDbSettings.EndpointUrl, _cosmosDbSettings.PrimaryKey, 
+                new CosmosClientOptions() { AllowBulkExecution = true });
             _container = _cosmosClient.GetContainer(_cosmosDbSettings.DatabaseName, _cosmosDbSettings.Container.Name);
         }
 
-        public async Task AddAsync(T animalImage)
+        public async Task AddAsync(T item)
         {
-            ItemResponse<T> response = await _container.CreateItemAsync(animalImage);
+            ItemResponse<T> response = await _container.CreateItemAsync(item);
             _logger.LogInformation($"AddAsync {response.RequestCharge} RUs for this call.");
+        }
+
+        public async Task BulkInsertAsync(IEnumerable<T> items)
+        {
+            List<Task> tasks = new List<Task>(items.Count());
+
+            foreach (T item in items)
+            {
+                tasks.Add(_container.CreateItemAsync(item)
+                    .ContinueWith(itemResponse =>
+                    {
+                        _logger.LogInformation($"BulkInsertAsync {itemResponse.Result.RequestCharge} RUs for this call.");
+
+                        if (!itemResponse.IsCompletedSuccessfully)
+                        {
+                            AggregateException innerExceptions = itemResponse.Exception.Flatten();
+                            if (innerExceptions.InnerExceptions.FirstOrDefault(innerEx => innerEx is CosmosException) is CosmosException cosmosException)
+                            {
+                                _logger.LogError($"Received {cosmosException.StatusCode} ({cosmosException.Message}).");
+                            }
+                            else
+                            {
+                                _logger.LogError($"Exception {innerExceptions.InnerExceptions.FirstOrDefault()}.");
+                            }
+                        }
+                    }));
+            }
+
+            // Wait until all are done
+            await Task.WhenAll(tasks);
         }
 
         public async Task DeleteAsync(string id)

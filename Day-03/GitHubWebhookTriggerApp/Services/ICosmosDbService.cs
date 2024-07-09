@@ -8,7 +8,8 @@ namespace GitHubWebhookTriggerApp.Services
 {
     public interface ICosmosDbService<T>
     {
-        Task AddAsync(T animalImage);
+        Task AddAsync(T item);
+        Task BulkInsertAsync(IEnumerable<T> items);
         Task DeleteAsync(string id);
         Task<T> GetAsync(string id);
         Task<IEnumerable<T>> GetMultipleAsync(string queryString);

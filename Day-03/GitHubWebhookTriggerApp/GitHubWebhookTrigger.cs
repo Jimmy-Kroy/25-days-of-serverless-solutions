@@ -22,41 +22,36 @@ namespace GitHubWebhookTriggerApp
             _cosmosDbService = cosmosDbService;
         }
 
-        [Function("GitHubWebhookTrigger")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
+        [Function("GitHubPushEventHandler")]
+        public async Task<IActionResult> GitHubPushEventHandler([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation("GitHubPushEventHandler received a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
             IEnumerable<AnimalImage> images = _githubEventProcessor.GetImages(requestBody);
 
-            if(images.Any())
+            if (images.Any())
             {
+                _logger.LogInformation($"Writing {images.Count()} images to the database.");
+                await _cosmosDbService.BulkInsertAsync(images);
+
+                int cnt = 0;
                 foreach (AnimalImage image in images)
                 {
-                    _logger.LogInformation($"image.Author: {image.Author}");
-                    _logger.LogInformation($"image.ImageUrl: {image.ImageUrl}");
-                    _logger.LogInformation($"image.CreationTime: {image.CreationTime}");
-                    _logger.LogInformation($"image.Id: {image.Id}");
-                    await _cosmosDbService.AddAsync(image);
+                    _logger.LogInformation($"Image[{cnt}] Id: {image.Id}");
+                    _logger.LogInformation($"Image[{cnt}] CreationTime: {image.CreationTime}");
+                    _logger.LogInformation($"Image[{cnt}] Author: {image.Author}");
+                    _logger.LogInformation($"Image[{cnt}] ImageUrl: {image.ImageUrl}");
+                    cnt++;
                 }
-
-
             }
             else
             {
-                _logger.LogInformation($"#IEnumerable<AnimalImage> images IS EMPTY");
+                _logger.LogInformation($"No images found in request.");
             }
 
-
-
-
-
-            //var data = JObject.Parse(requestBody);
-
-
-            return new OkObjectResult("Welcome to Azure Functions!");
+            return new OkObjectResult("Successfully processed Github push event!");
         }
     }
 }
