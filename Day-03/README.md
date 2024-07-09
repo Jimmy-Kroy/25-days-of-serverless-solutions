@@ -1,6 +1,6 @@
 # My notes about this solution:
 
-The local.settings.json has the following attributes, which are read during startup in the programs.cs. The database configuration is then injected in the CosmosDbService class.
+The local.settings.json has the following attributes, which are read during startup in the programs.cs. The database configuration is then injected in the CosmosDbService object.
 <code>
 {
     "IsEncrypted": false,
