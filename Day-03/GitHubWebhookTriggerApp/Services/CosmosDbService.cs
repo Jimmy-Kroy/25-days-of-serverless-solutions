@@ -1,0 +1,84 @@
+﻿using GitHubWebhookTriggerApp.Configurations;
+using Azure;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GitHubWebhookTriggerApp.Services
+{
+    public class CosmosDbService<T> : ICosmosDbService<T>
+    {
+        private readonly CosmosDbSettings _cosmosDbSettings;
+        private readonly CosmosClient _cosmosClient;
+        private readonly Container _container;
+        ILogger<CosmosDbService<T>> _logger;
+
+        public CosmosDbService(IOptions<CosmosDbSettings> cosmosDbSettings, ILogger<CosmosDbService<T>> logger)
+        {
+            _logger = logger;
+            _cosmosDbSettings = cosmosDbSettings.Value;
+            _cosmosClient = new CosmosClient(_cosmosDbSettings.EndpointUrl, _cosmosDbSettings.PrimaryKey);
+            _container = _cosmosClient.GetContainer(_cosmosDbSettings.DatabaseName, _cosmosDbSettings.Container.Name);
+        }
+
+        public async Task AddAsync(T animalImage)
+        {
+            ItemResponse<T> response = await _container.CreateItemAsync(animalImage);
+            _logger.LogInformation($"AddAsync {response.RequestCharge} RUs for this call.");
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            ItemResponse<T> response = await _container.DeleteItemAsync<T>(id, new PartitionKey(id));
+            _logger.LogInformation($"DeleteAsync {response.RequestCharge} RUs for this call.");
+        }
+
+        public async Task<T> GetAsync(string id)
+        {
+            try
+            {
+                ItemResponse<T> response = await _container.ReadItemAsync<T>(id, new PartitionKey(id));
+                _logger.LogInformation($"GetAsync {response.RequestCharge} RUs for this call.");
+
+                return response.Resource;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return default(T)!;
+            }
+            catch (CosmosException ex)
+            {
+                _logger.LogInformation($"CosmosException in GetAsync(string id): {ex.ToString()}");
+                return default(T)!;
+            }
+        }
+
+        public async Task<IEnumerable<T>> GetMultipleAsync(string queryString)
+        {
+            FeedIterator<T> feedIterator = _container.GetItemQueryIterator<T>(new QueryDefinition(queryString));
+            var results = new List<T>();
+            while (feedIterator.HasMoreResults)
+            {
+                FeedResponse<T> response = await feedIterator.ReadNextAsync();
+                _logger.LogInformation($"GetMultipleAsync {response.RequestCharge} RUs for this call.");
+                results.AddRange(response.ToList());
+            }
+            return results;
+        }
+
+        public async Task UpdateAsync(string id, T item)
+        {
+            ItemResponse<T> response = await _container.UpsertItemAsync(item, new PartitionKey(id));
+            _logger.LogInformation($"UpdateAsync {response.RequestCharge} RUs for this call.");
+            //ItemResponse<T> response = await _container.ReplaceItemAsync(item, id, new PartitionKey(id));
+            //_logger.LogInformation($"UpdateAsync {response.RequestCharge} RUs for this call.");
+        }
+    }
+
+}
