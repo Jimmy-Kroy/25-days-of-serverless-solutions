@@ -5,14 +5,14 @@ The local.settings.json has the following attributes, which are read during star
 {
     "IsEncrypted": false,
     "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-    "CosmosDB:EndpointUrl": "https://MyName.documents.azure.com:443/",
-    "CosmosDB:PrimaryKey": "...",
-    "CosmosDB:DatabaseName": "png-image-db",
-    "CosmosDB:Container:Name": "png-image-container",
-    "CosmosDB:Container:PartitionKey": "id"
-  }
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+        "CosmosDB:EndpointUrl": "https://MyName.documents.azure.com:443/",
+        "CosmosDB:PrimaryKey": "...",
+        "CosmosDB:DatabaseName": "png-image-db",
+        "CosmosDB:Container:Name": "png-image-container",
+        "CosmosDB:Container:PartitionKey": "id"
+    }
 }
 </code>
 
@@ -25,6 +25,7 @@ The local.settings.json has the following attributes, which are read during star
 -   **[Migrate local.settings.json settings to Azure](https://learn.microsoft.com/en-us/azure/azure-functions/functions-develop-vs/)**
 
 <hr>
+
 # Challenge 3: Webhooks
 
 ![Webhooks](https://res.cloudinary.com/jen-looper/image/upload/v1575132446/images/challenge-3_zj98pl.jpg)
