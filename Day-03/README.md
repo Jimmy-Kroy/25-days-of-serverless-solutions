@@ -26,6 +26,8 @@ The local.settings.json has the following attributes, which are read during star
 
 <hr>
 
+
+
 # Challenge 3: Webhooks
 
 ![Webhooks](https://res.cloudinary.com/jen-looper/image/upload/v1575132446/images/challenge-3_zj98pl.jpg)
