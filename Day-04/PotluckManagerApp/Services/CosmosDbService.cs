@@ -1,17 +1,15 @@
-﻿using GitHubWebhookTriggerApp.Configurations;
-using Azure;
-using Microsoft.Azure.Cosmos;
+﻿using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PotluckManagerApp.Configurations;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//using System.ComponentModel;
 
-namespace GitHubWebhookTriggerApp.Services
+namespace PotluckManagerApp.Services
 {
     public class CosmosDbService<T> : ICosmosDbService<T>
     {
@@ -24,9 +22,10 @@ namespace GitHubWebhookTriggerApp.Services
         {
             _logger = logger;
             _cosmosDbSettings = cosmosDbSettings.Value;
-            _cosmosClient = new CosmosClient(_cosmosDbSettings.EndpointUrl, _cosmosDbSettings.PrimaryKey, 
+            _cosmosClient = new CosmosClient(_cosmosDbSettings.EndpointUrl, _cosmosDbSettings.PrimaryKey,
                 new CosmosClientOptions() { AllowBulkExecution = true });
             _container = _cosmosClient.GetContainer(_cosmosDbSettings.DatabaseName, _cosmosDbSettings.Container.Name);
+            
         }
 
         public async Task AddAsync(T item)
@@ -114,5 +113,4 @@ namespace GitHubWebhookTriggerApp.Services
             //_logger.LogInformation($"UpdateAsync {response.RequestCharge} RUs for this call.");
         }
     }
-
 }
