@@ -44,9 +44,11 @@ namespace GitHubWebhookTriggerApp.Services
                 tasks.Add(_container.CreateItemAsync(item)
                     .ContinueWith(itemResponse =>
                     {
-                        _logger.LogInformation($"BulkInsertAsync {itemResponse.Result.RequestCharge} RUs for this call.");
-
-                        if (!itemResponse.IsCompletedSuccessfully)
+                        if (itemResponse.IsCompletedSuccessfully)
+                        {
+                            _logger.LogInformation($"BulkInsertAsync {itemResponse.Result.RequestCharge} RUs for this call.");
+                        }
+                        else
                         {
                             AggregateException innerExceptions = itemResponse.Exception.Flatten();
                             if (innerExceptions.InnerExceptions.FirstOrDefault(innerEx => innerEx is CosmosException) is CosmosException cosmosException)
