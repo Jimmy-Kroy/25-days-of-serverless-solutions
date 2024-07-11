@@ -50,11 +50,23 @@ namespace PotluckManagerApp
         }
 
         [Function("GetFoodDishById")]
-        public IActionResult GetFoodDishById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "PotluckManager/GetFoodDishById/{id}")] HttpRequest req,
+        public async Task<IActionResult> GetFoodDishById([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "PotluckManager/GetFoodDishById/{id}")] HttpRequest req,
             string id)
         {
-            _logger.LogInformation($"GetFoodDishById  id[{id}]  C# HTTP trigger function processed a request.");
-            return new OkObjectResult("Welcome to Azure Functions! GetFoodDishById");
+            string jsonString;
+
+            _logger.LogInformation("GetFoodDishById HTTP get trigger function received a request.");
+            FoodDish foodDish = await _cosmosDbService.GetAsync(id);
+
+            if(foodDish == default(FoodDish))
+            {
+                return new NotFoundResult();
+            }
+            else
+            {
+                jsonString = System.Text.Json.JsonSerializer.Serialize(foodDish);
+                return new OkObjectResult(jsonString);
+            } 
         }
 
         [Function("AddFoodDishes")]
@@ -66,7 +78,7 @@ namespace PotluckManagerApp
 
             if (string.IsNullOrEmpty(requestBody))
             {
-                return new OkObjectResult("No JSON file received!");
+                return new BadRequestObjectResult("No JSON file received!");
             }
             else if (!requestBody.IsValidJson(out string errorMessage))
             {
