@@ -104,11 +104,27 @@ namespace PotluckManagerApp
         }
 
         [Function("DeleteFoodDishById")]
-        public IActionResult DeleteFoodDishById([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "PotluckManager/DeleteFoodDishById/{id}")] HttpRequest req,
+        public async Task<IActionResult> DeleteFoodDishById([HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "PotluckManager/DeleteFoodDishById/{id}")] HttpRequest req,
             string id)
         {
-            _logger.LogInformation($"DeleteFoodDish id[{id}]         C# HTTP trigger function processed a request.");
-            return new OkObjectResult("Welcome to Azure Functions! DeleteFoodDishById");
+            string jsonString;
+
+            _logger.LogInformation("DeleteFoodDishById HTTP delete trigger function received a request.");
+            //Get the record so we can return it to the caller.
+            FoodDish foodDish = await _cosmosDbService.GetAsync(id);
+
+            if (foodDish == default(FoodDish))
+            {
+                _logger.LogInformation("DeleteFoodDishById no food dish found corresponding to the provided id.");
+                return new NotFoundResult();
+            }
+            else
+            {
+                _logger.LogInformation($"DeleteFoodDishById deleting food dish with id[{id}].");
+                await _cosmosDbService.DeleteAsync(id);
+                jsonString = System.Text.Json.JsonSerializer.Serialize(foodDish);
+                return new OkObjectResult(jsonString);
+            }
         }
 
         [Function("UpdateFoodDish")]
