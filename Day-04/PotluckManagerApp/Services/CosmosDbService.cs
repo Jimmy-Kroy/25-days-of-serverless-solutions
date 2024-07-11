@@ -105,9 +105,9 @@ namespace PotluckManagerApp.Services
             return results;
         }
 
-        public async Task UpdateAsync(string id, T item)
+        public async Task UpdateAsync(T item)
         {
-            ItemResponse<T> response = await _container.UpsertItemAsync(item, new PartitionKey(id));
+            ItemResponse<T> response = await _container.UpsertItemAsync(item);
             _logger.LogInformation($"UpdateAsync {response.RequestCharge} RUs for this call.");
             //ItemResponse<T> response = await _container.ReplaceItemAsync(item, id, new PartitionKey(id));
             //_logger.LogInformation($"UpdateAsync {response.RequestCharge} RUs for this call.");

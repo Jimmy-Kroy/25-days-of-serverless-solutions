@@ -128,10 +128,85 @@ namespace PotluckManagerApp
         }
 
         [Function("UpdateFoodDish")]
-        public IActionResult UpdateFoodDish([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "PotluckManager/UpdateFoodDish")] HttpRequest req)
+        public async Task<IActionResult> UpdateFoodDish([HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "PotluckManager/UpdateFoodDish")] HttpRequest req)
         {
-            _logger.LogInformation($"UpdateFoodDish         C# HTTP trigger function processed a request.");
-            return new OkObjectResult("Welcome to Azure Functions! UpdateFoodDish");
+            _logger.LogInformation("UpdateFoodDish HTTP put trigger function received a request.");
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+
+            if (string.IsNullOrEmpty(requestBody))
+            {
+                return new BadRequestObjectResult("No JSON file received!");
+            }
+            else if (!requestBody.IsValidJson(out string errorMessage))
+            {
+                return new BadRequestObjectResult("Please check and validate the JSON file! " + errorMessage);
+            }
+
+            FoodDish foodDishUpdate = JsonConvert.DeserializeObject<FoodDish>(requestBody)!;
+
+            if(string.IsNullOrEmpty(foodDishUpdate.Id.ToString()))
+            {
+                return new BadRequestObjectResult("Please provide the required food dish id in the JSON file!");
+            }
+            else if(string.IsNullOrEmpty(foodDishUpdate.Dish) &&
+                string.IsNullOrEmpty(foodDishUpdate.GuestName) &&
+                string.IsNullOrEmpty(foodDishUpdate.Amount) &&
+                foodDishUpdate.IsVegan == null)
+            {
+                return new BadRequestObjectResult("Please provide fields to update in the JSON file!");
+            }
+
+            _logger.LogInformation($"foodDishUpdate: Id: {foodDishUpdate.Id}");
+            //CreationTime will not be updated
+            //_logger.LogInformation($"foodDishUpdate: CreationTime: {foodDishUpdate.CreationTime}");  
+            _logger.LogInformation($"foodDishUpdate: GuestName: {foodDishUpdate.GuestName}");
+            _logger.LogInformation($"foodDishUpdate: Dish: {foodDishUpdate.Dish}");
+            _logger.LogInformation($"foodDishUpdate: Amount: {foodDishUpdate.Amount}");
+            _logger.LogInformation($"foodDishUpdate: IsVegan: {foodDishUpdate.IsVegan}");
+
+            //Retrieve the food dish record
+            FoodDish foodDish = await _cosmosDbService.GetAsync(foodDishUpdate.Id.ToString());
+
+            if (foodDish == default(FoodDish))
+            {
+                _logger.LogInformation("UpdateFoodDish no food dish found corresponding to the provided id.");
+                return new NotFoundResult();
+            }
+            else
+            {
+                _logger.LogInformation($"foodDish record retrieved from database that will be updated:");
+                _logger.LogInformation($"foodDish: Id: {foodDish.Id}");
+                _logger.LogInformation($"foodDish: CreationTime: {foodDish.CreationTime}");  
+                _logger.LogInformation($"foodDish: GuestName: {foodDish.GuestName}");
+                _logger.LogInformation($"foodDish: Dish: {foodDish.Dish}");
+                _logger.LogInformation($"foodDish: Amount: {foodDish.Amount}");
+                _logger.LogInformation($"foodDish: IsVegan: {foodDish.IsVegan}");
+
+                if (!string.IsNullOrEmpty(foodDishUpdate.GuestName))
+                {
+                    foodDish.GuestName = foodDishUpdate.GuestName;
+                }
+
+                if (!string.IsNullOrEmpty(foodDishUpdate.Dish))
+                {
+                    foodDish.Dish = foodDishUpdate.Dish;
+                }
+
+                if (!string.IsNullOrEmpty(foodDishUpdate.Amount))
+                {
+                    foodDish.Amount = foodDishUpdate.Amount;
+                }
+
+                if (foodDishUpdate.IsVegan != null)
+                {
+                    foodDish.IsVegan = foodDishUpdate.IsVegan;
+                }
+
+                await _cosmosDbService.UpdateAsync(foodDish);
+            }
+
+            return new OkObjectResult("Successfully processed the update request.");
         }
     }
 }

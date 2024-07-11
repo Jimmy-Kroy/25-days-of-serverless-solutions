@@ -13,6 +13,6 @@ namespace PotluckManagerApp.Services
         Task DeleteAsync(string id);
         Task<T> GetAsync(string id);
         Task<IEnumerable<T>> GetMultipleAsync(string queryString);
-        Task UpdateAsync(string id, T item);
+        Task UpdateAsync(T item);
     }
 }

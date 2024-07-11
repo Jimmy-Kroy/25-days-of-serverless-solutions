@@ -25,6 +25,6 @@ namespace PotluckManagerApp.Models
         public string Amount { get; set; }
 
         [JsonProperty(PropertyName = "IsVegan")]
-        public bool IsVegan { get; set; }
+        public bool? IsVegan { get; set; }
     }
 }
