@@ -6,7 +6,6 @@ using PotluckManagerApp.Models;
 using PotluckManagerApp.Services;
 using Newtonsoft.Json;
 using PotluckManagerApp.Helpers;
-//using System.Text.Json;
 
 namespace PotluckManagerApp
 {
@@ -22,18 +21,14 @@ namespace PotluckManagerApp
         }
 
         [Function("GetAllFoodDishes")]
-        public IActionResult GetAllFoodDishes([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "PotluckManager/GetAllFoodDishes")] HttpRequest req)
+        public async Task<IActionResult> GetAllFoodDishes([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "PotluckManager/GetAllFoodDishes")] HttpRequest req)
         {
             string jsonString;
+            const string query = "SELECT* FROM C";
 
-            _logger.LogInformation("GetAllFoodDishes   C# HTTP trigger function processed a request.");
+            _logger.LogInformation("GetAllFoodDishes HTTP get trigger function received a request.");
 
-            List<FoodDish> foodDishes = new List<FoodDish>();
-
-            //foodDishes.Add(new FoodDish("Kyle Reese", "Macaroni And Cheese", "For about six hungry persons!", true));
-            //foodDishes.Add(new FoodDish("Jennifer van Dijk", "Slow-Cooker Grape Jelly Meatballs.", "Twenty balls of 100 gram each.", false));
-            //foodDishes.Add(new FoodDish("Chantal Janszen", "Broccoli, Grape, And Pasta Salad.", "Four person salad.", true));
-            //foodDishes.Add(new FoodDish("Mohammed Dunya", "Classic Potato Salad.", "Five people.", true));
+            IEnumerable<FoodDish> foodDishes = await _cosmosDbService.GetMultipleAsync(query);
 
             if (foodDishes.Any())
             {
