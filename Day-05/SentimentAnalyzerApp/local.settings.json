@@ -1,0 +1,12 @@
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "TextTranslationClient:EndpointUrl": "https://api.cognitive.microsofttranslator.com/",
+    "TextTranslationClient:AzureRegion": "germanywestcentral",
+    "TextTranslationClient:Key": "22187422d8144a998daeede26d408335",
+    "TextAnalyticsClient:EndpointUrl": "https://letter-sentiment-analysis.cognitiveservices.azure.com/",
+    "TextAnalyticsClient:Key": "74aa395954a44059bcf5507ee3422363"
+  }
+}
