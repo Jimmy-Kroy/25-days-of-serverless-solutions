@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SentimentAnalyzerApp.Services;
 
 namespace SentimentAnalyzerApp
@@ -23,6 +24,10 @@ namespace SentimentAnalyzerApp
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
             string text = await _textTranslationService.TranslateTextToEnglish("mina föräldrar är verkligen inte bra på tekniska saker");
+
+            object[] body = new object[] { new { Response = text } };
+            var response = JsonConvert.SerializeObject(body);
+
 
             _logger.LogInformation($"Translation: {text}");
 
