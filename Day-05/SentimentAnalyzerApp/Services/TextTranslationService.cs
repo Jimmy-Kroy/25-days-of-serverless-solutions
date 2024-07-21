@@ -3,9 +3,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SentimentAnalyzerApp.Configurations;
+using SentimentAnalyzerApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,14 +27,18 @@ namespace SentimentAnalyzerApp.Services
             _httpClient = httpClient;
         }
 
-        public async Task<string> TranslateTextToEnglish(string text)
+        public async Task<TranslationResult?> TranslateTextToEnglish(string text)
         {
-            string result = string.Empty;
+            /*https://stackoverflow.com/questions/67791029/nullable-array-notation
+            When we put? after reference type we allow the instance to be null.So we have
+            string?[] - string array where we allow the items to be null (but array itself can't be null)
+            string[]? - string array which can be null itself (but it can't have null items)
+            string?[]? - both array and its items allowed to be null*/
+            TranslationResult?[]? translationResult;
+            string jsonString;
 
             object[] body = new object[] { new { Text = text } };
             var requestBody = JsonConvert.SerializeObject(body);
-
-            //using (var client = new HttpClient())
 
             using (var request = new HttpRequestMessage())
             {
@@ -47,11 +53,11 @@ namespace SentimentAnalyzerApp.Services
                 // Send the request and get response.
                 HttpResponseMessage response = await _httpClient.SendAsync(request).ConfigureAwait(false);
                 // Read response as a string.
-                result = await response.Content.ReadAsStringAsync();
-                //Console.WriteLine(result);
+                jsonString = await response.Content.ReadAsStringAsync();
+                translationResult = JsonConvert.DeserializeObject<TranslationResult?[]?>(jsonString);
             }
 
-            return result;
+            return translationResult?.FirstOrDefault();
         }
     }
 }

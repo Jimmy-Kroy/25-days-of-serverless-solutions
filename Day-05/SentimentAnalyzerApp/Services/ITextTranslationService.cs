@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SentimentAnalyzerApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace SentimentAnalyzerApp.Services
 {
     public interface ITextTranslationService
     {
-        Task<string> TranslateTextToEnglish(string text);
+        Task<TranslationResult?> TranslateTextToEnglish(string text);
     }
 }
