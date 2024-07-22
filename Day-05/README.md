@@ -1,4 +1,85 @@
-﻿# Challenge 5: Smart Apps
+﻿# Solution
+I created one Azure Function that accepts a Json file as input and returns a Json file as output. I used the free tier of the Translator Text Cognitive Service.
+
+## Resources/Tools Used 🚀
+
+-   **[Translator service](https://learn.microsoft.com/en-us/azure/ai-services/translator/quickstart-text-rest-api)**
+-   **[Sentiment analysis](https://learn.microsoft.com/en-us/azure/ai-services/language-service/sentiment-opinion-mining/quickstart)**
+
+## The end point:
+
+### DetermineSentimentOfLetter
+You can analyze one or more letters in one Rest api call, you need to use the JSON array notation as shown in the JSON request below. 
+
+```json
+DetermineSentimentOfLetter: [POST] http://localhost:7258/api/DetermineSentimentOfLetter
+[ 
+    {
+        "sender": "tracy",
+        "text": "我讨厌饭"
+    }
+]
+``` 
+###### _JSON Example of one letter that is sent to the endpoint._
+
+```json
+[
+    {
+        "sender": "Adam",
+        "text": "my little brother is so annoying and stupid"
+    },
+    {
+        "sender": "Adam",
+        "text": "I really like the bike I got for a present"
+    },
+    {
+        "sender": "Adam",
+        "text": "The food is really bad at home, I'd rather go to McDonalds"
+    }
+]
+
+``` 
+###### _JSON Example of multiple letters that are sent to the endpoint._
+
+When successful the endpoint will respond with a status 200 OK. In addition a JSON file is returned that contains the analysis of the letters. 
+```json
+[
+    {
+        "sender": "Adam",
+        "text": "my little brother is so annoying and stupid",
+        "language": "en",
+        "translation": "my little brother is so annoying and stupid",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 1.0,
+        "neutral_sentiment": 0.0
+    },
+    {
+        "sender": "Adam",
+        "text": "I really like the bike I got for a present",
+        "language": "en",
+        "translation": "I really like the bike I got for a present",
+        "overall_sentiment_score": "Nice",
+        "positive_sentiment": 0.79,
+        "negative_sentiment": 0.01,
+        "neutral_sentiment": 0.2
+    },
+    {
+        "sender": "Adam",
+        "text": "The food is really bad at home, I'd rather go to McDonalds",
+        "language": "en",
+        "translation": "The food is really bad at home, I'd rather go to McDonalds",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.92,
+        "neutral_sentiment": 0.08
+    }
+]
+
+``` 
+###### _JSON reply from the DetermineSentimentOfLetter endpoint containing the sentiment info._
+
+# Challenge 5: Smart Apps
 
 ![A letter writing challenge](https://res.cloudinary.com/jen-looper/image/upload/v1575132446/images/challenge-5_ervxzc.jpg)
 
