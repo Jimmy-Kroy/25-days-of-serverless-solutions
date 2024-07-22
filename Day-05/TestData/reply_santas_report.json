@@ -1,0 +1,142 @@
+[
+    {
+        "sender": "Adam",
+        "text": "my little brother is so annoying and stupid",
+        "language": "en",
+        "translation": "my little brother is so annoying and stupid",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 1.0,
+        "neutral_sentiment": 0.0
+    },
+    {
+        "sender": "Adam",
+        "text": "I really like the bike I got for a present",
+        "language": "en",
+        "translation": "I really like the bike I got for a present",
+        "overall_sentiment_score": "Nice",
+        "positive_sentiment": 0.79,
+        "negative_sentiment": 0.01,
+        "neutral_sentiment": 0.2
+    },
+    {
+        "sender": "Adam",
+        "text": "The food is really bad at home, I'd rather go to McDonalds",
+        "language": "en",
+        "translation": "The food is really bad at home, I'd rather go to McDonalds",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.92,
+        "neutral_sentiment": 0.08
+    },
+    {
+        "sender": "Eva",
+        "text": "Eu odeio limpar meu quarto",
+        "language": "pt",
+        "translation": "I hate cleaning my room",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.99,
+        "neutral_sentiment": 0.01
+    },
+    {
+        "sender": "Eva",
+        "text": "meu professor é legal",
+        "language": "pt",
+        "translation": "My teacher is nice",
+        "overall_sentiment_score": "Nice",
+        "positive_sentiment": 0.98,
+        "negative_sentiment": 0.0,
+        "neutral_sentiment": 0.02
+    },
+    {
+        "sender": "Eva",
+        "text": "o cachorro vizinho é estúpido e fedorento",
+        "language": "pt",
+        "translation": "The neighboring dog is stupid and smelly",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.98,
+        "neutral_sentiment": 0.02
+    },
+    {
+        "sender": "jenifer",
+        "text": "mina föräldrar är verkligen inte bra på tekniska saker",
+        "language": "sv",
+        "translation": "My parents are really not good at technical things",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.98,
+        "neutral_sentiment": 0.02
+    },
+    {
+        "sender": "jenifer",
+        "text": "min lillasyster är jobbig",
+        "language": "sv",
+        "translation": "My little sister is annoying",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 1.0,
+        "neutral_sentiment": 0.0
+    },
+    {
+        "sender": "jenifer",
+        "text": "kan vi äta nåt annat än köttbullar?",
+        "language": "sv",
+        "translation": "Can we eat anything other than meatballs?",
+        "overall_sentiment_score": "Neutral",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.0,
+        "neutral_sentiment": 1.0
+    },
+    {
+        "sender": "sergio",
+        "text": "Me gusta mi futbol",
+        "language": "es",
+        "translation": "I like my football",
+        "overall_sentiment_score": "Nice",
+        "positive_sentiment": 0.99,
+        "negative_sentiment": 0.0,
+        "neutral_sentiment": 0.0
+    },
+    {
+        "sender": "sergio",
+        "text": "Desearía tener un perro",
+        "language": "es",
+        "translation": "I wish I had a dog",
+        "overall_sentiment_score": "Nice",
+        "positive_sentiment": 0.82,
+        "negative_sentiment": 0.04,
+        "neutral_sentiment": 0.14
+    },
+    {
+        "sender": "sergio",
+        "text": "papá y Santa son similares",
+        "language": "es",
+        "translation": "Dad and Santa are similar",
+        "overall_sentiment_score": "Neutral",
+        "positive_sentiment": 0.08,
+        "negative_sentiment": 0.01,
+        "neutral_sentiment": 0.91
+    },
+    {
+        "sender": "tracy",
+        "text": "我讨厌饭",
+        "language": "zh-Hans",
+        "translation": "I hate rice",
+        "overall_sentiment_score": "Naughty",
+        "positive_sentiment": 0.0,
+        "negative_sentiment": 0.99,
+        "neutral_sentiment": 0.01
+    },
+    {
+        "sender": "tracy",
+        "text": "我喜欢我的小妹妹，她好可爱",
+        "language": "zh-Hans",
+        "translation": "I love my little sister, she's so cute",
+        "overall_sentiment_score": "Nice",
+        "positive_sentiment": 1.0,
+        "negative_sentiment": 0.0,
+        "neutral_sentiment": 0.0
+    }
+]
