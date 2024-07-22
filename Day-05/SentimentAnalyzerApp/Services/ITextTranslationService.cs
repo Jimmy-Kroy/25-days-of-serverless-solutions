@@ -9,6 +9,6 @@ namespace SentimentAnalyzerApp.Services
 {
     public interface ITextTranslationService
     {
-        Task<TranslationResult?> TranslateTextToEnglish(string text);
+        Task<TranslationResult?> TranslateTextToEnglishAsync(string text);
     }
 }

@@ -27,7 +27,9 @@ namespace SentimentAnalyzerApp.Services
             _httpClient = httpClient;
         }
 
-        public async Task<TranslationResult?> TranslateTextToEnglish(string text)
+        /* Note we can perform batch translations using an array. 
+         object[] body = new object[] { new { Text = textToTranslate }, new { Text = textToTranslate } };*/
+        public async Task<TranslationResult?> TranslateTextToEnglishAsync(string text)
         {
             /*https://stackoverflow.com/questions/67791029/nullable-array-notation
             When we put? after reference type we allow the instance to be null.So we have

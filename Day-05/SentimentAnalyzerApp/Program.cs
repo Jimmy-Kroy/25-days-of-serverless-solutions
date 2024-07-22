@@ -14,6 +14,7 @@ var host = new HostBuilder()
 
         services.AddHttpClient<ITextTranslationService, TextTranslationService>();
         services.AddTransient<ITextTranslationService, TextTranslationService>();
+        services.AddTransient<ISentimentAnalysisService, SentimentAnalysisService>();
 
         services.AddOptions<TextTranslationClientSettings>()
         .Configure<IConfiguration>((settings, configuration) =>
