@@ -30,7 +30,11 @@ The DateTimeParser Rest Api returns the following Json response. The returned ti
 }
 ``` 
 
-When running the ScheduleReminder you can see the messages appearing in the Slack view. 
+In order to send messages to Slack, you need to configure a webhook endpoint in your Slack account. 
+
+
+When running the ScheduleReminder you can see the messages appearing in the Slack view.
+
 ![Slack bot screenshot](./Images/slack-reminder.png)
 
 Note you can install js packages such as chrono by using the Kudo console at https://yourfunctionappname.scm.azurewebsites.net and navigate to the wwwroot folder and install the package that you need.
@@ -42,6 +46,20 @@ In the Kudo console, you navigate to D:\home\site\wwwroot. You can do so by usin
 -   **[List of time zone abbreviations](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations)**
 -   **[Chrono time zone abbreviations](https://github.com/wanasit/chrono/blob/344026e9a08f6956048691de3322f093a45daed5/src/common/refiners/ExtractTimezoneAbbrRefiner.ts)**
 -   **[Use IHttpClientFactory ](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)**
+
+The local.settings.json looks like this:
+```json
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "Slack:EndpointUrl": "https://hooks.slack.com/services/<< Webhook Key >>",
+    "ChronoService:EndpointUrl": "https://gettimestamp.azurewebsites.net/api/DateTimeParser",
+    "ChronoService:Key": "<< Azure Function Key >>"
+  }
+}
+``` 
 
 # Challenge 6: Durable Pattern
 
