@@ -30,6 +30,9 @@ The DateTimeParser Rest Api returns the following Json response. The returned ti
 }
 ``` 
 
+When running the ScheduleReminder you can see the messages appearing in the Slack view. 
+![Slack bot screenshot](./Images/slack-reminder.png)
+
 Note you can install js packages such as chrono by using the Kudo console at https://yourfunctionappname.scm.azurewebsites.net and navigate to the wwwroot folder and install the package that you need.
 
 In the Kudo console, you navigate to D:\home\site\wwwroot. You can do so by using the command cd site\wwwroot and press enter on your keyboard. Once you’re in wwwroot, run the command npm i your-package to install the package. You can read more about this **[here](https://stackoverflow.com/questions/62971736/azure-functions-running-npm-install-on-azure-portal)**, **[here](https://sajeetharan.wordpress.com/2020/01/10/want-to-alert-your-employees-to-have-a-break-at-work-azure-function-can-help-you/)** and **[here](https://stackoverflow.com/questions/62971736/azure-functions-running-npm-install-on-azure-portal)**. 
