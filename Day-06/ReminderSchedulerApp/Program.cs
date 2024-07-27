@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReminderSchedulerApp.Configurations;
+using ReminderSchedulerApp.Services;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWebApplication()
@@ -22,6 +23,11 @@ var host = new HostBuilder()
         {
             configuration.GetSection("ChronoService").Bind(settings);
         });
+
+        services.AddHttpClient<ISlackClient, SlackClient>();
+        services.AddHttpClient<IChronoService, ChronoService>();
+        services.AddTransient<ISlackClient, SlackClient>();
+        services.AddTransient<IChronoService, ChronoService>();
     })
     .Build();
 
