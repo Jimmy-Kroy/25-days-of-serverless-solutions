@@ -8,8 +8,8 @@ I created ReminderScheduler App that uses a durable function. The ScheduleRemind
 ScheduleReminder: [POST] /api/ScheduleReminder
 {
     "text": "Please schedule to make coffee in 30 minutes." ,
-    "timezone": CEST,
-	"iconEmoji": ":happy:"
+    "timezone": "CEST",
+    "iconEmoji": ":happy:"
 }
 ``` 
 
@@ -19,7 +19,7 @@ I created a Node.js function called DateTimeParser that uses the chrono library 
 DateTimeParser: [POST] /api/DateTimeParser
 {
     "text": "Please schedule to make coffee in 30 minutes." ,
-    "timezone": CEST,
+    "timezone": "CEST",
 }
 ``` 
 
