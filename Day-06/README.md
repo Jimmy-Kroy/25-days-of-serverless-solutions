@@ -44,6 +44,8 @@ curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"
 
 The resulting webhook can be seen in the following image. 
 
+<img src="./Images/slack-webhook.png" alt="Slack webhook screenshot" width="400px">
+
 ![Slack webhook screenshot](./Images/slack-webhook.png)
 
 When running the ScheduleReminder you can see the messages appearing in the Slack view.
