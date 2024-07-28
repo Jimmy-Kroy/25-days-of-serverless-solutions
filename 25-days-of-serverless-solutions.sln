@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubWebhookTriggerApp", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PotluckManagerApp", "Day-04\PotluckManagerApp\PotluckManagerApp.csproj", "{558C6BDE-47A5-43B4-8B44-6D1F2B01974A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalyzerApp", "Day-05\SentimentAnalyzerApp\SentimentAnalyzerApp.csproj", "{7EB57019-FE5A-49B2-AD22-D74FF8CD693A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SentimentAnalyzerApp", "Day-05\SentimentAnalyzerApp\SentimentAnalyzerApp.csproj", "{7EB57019-FE5A-49B2-AD22-D74FF8CD693A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderSchedulerApp", "Day-06\ReminderSchedulerApp\ReminderSchedulerApp.csproj", "{1FAF7B49-5CD4-4649-9958-1D4CD2A35CC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReminderSchedulerApp", "Day-06\ReminderSchedulerApp\ReminderSchedulerApp.csproj", "{1FAF7B49-5CD4-4649-9958-1D4CD2A35CC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindImageApp", "Day-07\FindImageApp\FindImageApp.csproj", "{43C3706C-AFF5-45E0-884D-41AE5651B5C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{1FAF7B49-5CD4-4649-9958-1D4CD2A35CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FAF7B49-5CD4-4649-9958-1D4CD2A35CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FAF7B49-5CD4-4649-9958-1D4CD2A35CC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C3706C-AFF5-45E0-884D-41AE5651B5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C3706C-AFF5-45E0-884D-41AE5651B5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C3706C-AFF5-45E0-884D-41AE5651B5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C3706C-AFF5-45E0-884D-41AE5651B5C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
