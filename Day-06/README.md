@@ -30,8 +30,21 @@ The DateTimeParser Rest Api returns the following Json response. The returned ti
 }
 ``` 
 
-In order to send messages to Slack, you need to configure a webhook endpoint in your Slack account. 
+In order to send messages to Slack, you need to configure a webhook endpoint in your Slack account. To add a Slack webhook, follow these steps:
 
+1. Navigate to the Slack API apps page: https://api.slack.com/apps/
+2. Select the app where you want to activate the webhook.
+3. Go to Features > Incoming Webhooks.
+4. Enable Incoming Webhooks by clicking "Activate Incoming Webhooks".
+5. Once activated, you can then add new webhooks to your chosen app.
+
+```json
+curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/<<Webhook Key>>
+``` 
+
+The resulting webhook can be seen in the following image. 
+
+![Slack webhook screenshot](./Images/slack-webhook.png)
 
 When running the ScheduleReminder you can see the messages appearing in the Slack view.
 
