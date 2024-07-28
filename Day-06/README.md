@@ -50,7 +50,9 @@ The resulting webhook can be seen in the following image.
 
 When running the ScheduleReminder you can see the messages appearing in the Slack view.
 
-![Slack bot screenshot](./Images/slack-reminder.png)
+
+<img src="./Images/slack-reminder.png" alt="Slack bot screenshot" width="600px">
+
 
 Note you can install js packages such as chrono by using the Kudo console at https://yourfunctionappname.scm.azurewebsites.net and navigate to the wwwroot folder and install the package that you need.
 
