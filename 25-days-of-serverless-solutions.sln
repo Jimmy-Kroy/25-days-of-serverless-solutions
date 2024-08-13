@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubWebhookHandlerApp", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DealSeekerApp", "Day-10\DealSeekerApp\DealSeekerApp.csproj", "{5567C2D4-8294-4D33-B1ED-B27A4B15B019}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WishListApp", "Day-11\WishListApp\WishListApp.csproj", "{002274B5-96BA-4139-8759-AD455ADBCAC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{5567C2D4-8294-4D33-B1ED-B27A4B15B019}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5567C2D4-8294-4D33-B1ED-B27A4B15B019}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5567C2D4-8294-4D33-B1ED-B27A4B15B019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
