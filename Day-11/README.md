@@ -68,11 +68,11 @@ The form used to send a wish to Santa Claus can be seen below.
 
 The Slack notifications received by the elves are shown below.
 
-<img src="./Images/slack-notificationspng" alt="Slack notifications" max-width="600px">
+<img src="./Images/slack-notifications.png" alt="Slack notifications" max-width="600px">
 
 The *CosmosDBTrigger* utilizes an additional lease container to track changes in the database, as shown below.
 
-<img src="./Images/cosmos-db-lease-container" alt="Cosmos DB Lease container" max-width="600px">
+<img src="./Images/cosmos-db-lease-container.png" alt="Cosmos DB Lease container" max-width="600px">
 
 
 
