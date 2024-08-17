@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReminderSchedulerApp", "Day
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FindImageApp", "Day-07\FindImageApp\FindImageApp.csproj", "{43C3706C-AFF5-45E0-884D-41AE5651B5C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubWebhookHandlerApp", "Day-09\GitHubWebhookHandlerApp\GitHubWebhookHandlerApp.csproj", "{F318EC71-9895-44FB-9E01-18FBC7942583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubWebhookHandlerApp", "Day-09\GitHubWebhookHandlerApp\GitHubWebhookHandlerApp.csproj", "{F318EC71-9895-44FB-9E01-18FBC7942583}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DealSeekerApp", "Day-10\DealSeekerApp\DealSeekerApp.csproj", "{5567C2D4-8294-4D33-B1ED-B27A4B15B019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DealSeekerApp", "Day-10\DealSeekerApp\DealSeekerApp.csproj", "{5567C2D4-8294-4D33-B1ED-B27A4B15B019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WishListApp", "Day-11\WishListApp\WishListApp.csproj", "{002274B5-96BA-4139-8759-AD455ADBCAC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WishListApp", "Day-11\WishListApp\WishListApp.csproj", "{002274B5-96BA-4139-8759-AD455ADBCAC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChristmasCardApp", "Day-12\ChristmasCardApp\ChristmasCardApp.csproj", "{128FD2EF-EB60-487B-8B20-17DBA8A028D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{002274B5-96BA-4139-8759-AD455ADBCAC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{128FD2EF-EB60-487B-8B20-17DBA8A028D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{128FD2EF-EB60-487B-8B20-17DBA8A028D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{128FD2EF-EB60-487B-8B20-17DBA8A028D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{128FD2EF-EB60-487B-8B20-17DBA8A028D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
