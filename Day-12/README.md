@@ -1,4 +1,33 @@
 # Solution
+I created the ChristmasCardApp using an Azure HTTP triggered function. The function is called by passing a query parameters in the GET request, as shown below.
+
+## The end point: [GET] /api/ChristmasCard
+```
+[GET] /api/ChristmasCard?name=Bart-Simpson
+[GET] /api/ChristmasCard?name=Lisa-Simpson
+```
+Each name passed to the ChristmasCard service must have a corresponding markdown file <a href="https://github.com/Jimmy-Kroy/25-days-of-serverless-solutions/tree/master/Day-12/ChristmasCards" target="_blank">here</a>.
+
+The local.settings.json looks like this:
+```json
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "RedisCache:InstanceName": "ChristmasCardApp",
+    "RedisCache:ConnectionString": "<<Redis ConnectionString>>",
+    "RedisCache:CachingTime": "1.12:00:00",
+    "Github:EndpointUrl": "https://api.github.com/repos/Jimmy-Kroy/25-days-of-serverless-solutions/contents/Day-12/ChristmasCards/"
+  }
+}
+``` 
+
+## Resources/Tools Used
+
+-   **[REST API endpoints for repository contents](https://docs.github.com/en/rest/repos/contents)**
+-   **[Use Azure Cache for Redis](https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/cache-dotnet-how-to-use-azure-redis-cache)**
+-   **[Implementing caching using DI](https://medium.com/@brucycenteio/implementing-caching-in-asp-net-core-net-7-or-8-enhancing-application-performance-0de59dd6cf67)**
 
 
 # Challenge 12: Caching
