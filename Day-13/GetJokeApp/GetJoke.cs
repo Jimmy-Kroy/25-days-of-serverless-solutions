@@ -1,11 +1,13 @@
+using Azure.AI.OpenAI;
+using Azure.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.ClientModel;
 using OpenAI;
 using OpenAI.Chat;
+using System.ClientModel;
 
 namespace GetJokeApp;
 
@@ -25,19 +27,33 @@ public class GetJoke
     {
         _logger.LogInformation("C# HTTP trigger function processed a request.");
         string joke = "In a twist of humor, today's joke is that there isn't one.";
+        ChatClient? client = null;
 
         // Read from configuration
         string? endpoint = _configuration["JokeEndpoint"];
         string? apiKey = _configuration["JokeApiKey"];
         string? deploymentName = _configuration["DeploymentName"];
+        bool useApiKey = _configuration.GetValue<bool>("UseApiKey", false);
 
-        ChatClient client = new(
-            credential: new ApiKeyCredential(apiKey),
-            model: deploymentName,
-            options: new OpenAIClientOptions()
-            {
-                Endpoint = new($"{endpoint}"),
-            });
+        if (useApiKey)
+        {
+            _logger.LogInformation($"Creating ChatClient using APIKEY!");
+            client = new(
+                credential: new ApiKeyCredential(apiKey),
+                model: deploymentName,
+                options: new OpenAIClientOptions()
+                {
+                    Endpoint = new($"{endpoint}"),
+                });
+        }
+        else
+        {
+            _logger.LogInformation($"Creating ChatClient using System Assigned Identity!");
+            AzureOpenAIClient azureClient = new AzureOpenAIClient(
+                new Uri(endpoint),
+                new ManagedIdentityCredential());//DefaultAzureCredential());
+            client = azureClient.GetChatClient(deploymentName);
+        }
 
         ChatCompletion completion = client.CompleteChat(GetChatCompletion());
 
