@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetJokeAppV2", "Day-13\GetJ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTriggerFunctionApp", "TestProjects\BlobTriggerFunctionApp\BlobTriggerFunctionApp.csproj", "{C24C402E-1B3F-4C0E-98D8-DCF9407B3ED8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTriggerFunctionAppV2", "TestProjects\BlobTriggerFunctionAppV2\BlobTriggerFunctionAppV2.csproj", "{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,10 @@ Global
 		{C24C402E-1B3F-4C0E-98D8-DCF9407B3ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C24C402E-1B3F-4C0E-98D8-DCF9407B3ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C24C402E-1B3F-4C0E-98D8-DCF9407B3ED8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
