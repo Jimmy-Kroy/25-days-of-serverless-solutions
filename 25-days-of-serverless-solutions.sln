@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTriggerFunctionApp", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTriggerFunctionAppV2", "TestProjects\BlobTriggerFunctionAppV2\BlobTriggerFunctionAppV2.csproj", "{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CosmosDBOutputBindingApp", "TestProjects\CosmosDBOutputBindingApp\CosmosDBOutputBindingApp.csproj", "{F5C79BF1-A6FA-4F64-B2EE-97AC92F85697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpTriggerFunctionApp", "TestProjects\HttpTriggerFunctionApp\HttpTriggerFunctionApp.csproj", "{7BDF739E-6380-4A82-9D22-A6B322BD871F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,14 @@ Global
 		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8A2313D-BD39-442C-A3A1-CAA9B75517DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C79BF1-A6FA-4F64-B2EE-97AC92F85697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C79BF1-A6FA-4F64-B2EE-97AC92F85697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C79BF1-A6FA-4F64-B2EE-97AC92F85697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C79BF1-A6FA-4F64-B2EE-97AC92F85697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BDF739E-6380-4A82-9D22-A6B322BD871F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BDF739E-6380-4A82-9D22-A6B322BD871F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BDF739E-6380-4A82-9D22-A6B322BD871F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BDF739E-6380-4A82-9D22-A6B322BD871F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
