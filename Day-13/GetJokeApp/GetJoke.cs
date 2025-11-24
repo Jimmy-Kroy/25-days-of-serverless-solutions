@@ -1,3 +1,4 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using OpenAI;
 using OpenAI.Chat;
 using System.ClientModel;
+using System.ClientModel.Primitives;
 using System.Text.Json.Serialization;
 
 namespace GetJokeApp;
@@ -30,6 +32,7 @@ public class GetJoke
         Connection = "CosmosDbConnectionString",
         SqlQuery = "SELECT TOP 1 * FROM c ORDER BY c.timestamp DESC")] IEnumerable<JokeConversationContext> records)
     {
+        ChatClient client = null;
         ChatMessage[] chatMessages = Array.Empty<ChatMessage>();
         string joke = "In a twist of humor, today's joke is that there isn't one.";
         _logger.LogInformation("C# HTTP trigger function processed a request.");
@@ -56,22 +59,40 @@ public class GetJoke
         string? deploymentName = _configuration["DeploymentName"];
         bool useApiKey = _configuration.GetValue<bool>("UseApiKey", false);
 
-        _logger.LogInformation($"Creating ChatClient using APIKEY!");
-        ChatClient client = new(
-            credential: new ApiKeyCredential(apiKey),
-            model: deploymentName,
-            options: new OpenAIClientOptions()
-            {
-                Endpoint = new($"{endpoint}"),
-            });
+        if(useApiKey)
+        {
+            _logger.LogInformation($"Creating ChatClient using APIKEY!");
+            client = new(
+                credential: new ApiKeyCredential(apiKey),
+                model: deploymentName,
+                options: new OpenAIClientOptions()
+                {
+                    Endpoint = new($"{endpoint}"),
+                });
+        }
+        else
+        {
+            _logger.LogInformation($"Creating ChatClient using Managed Service Identity (MSI)!");
+            BearerTokenPolicy tokenPolicy = new(
+                //new DefaultAzureCredential(),
+                new ManagedIdentityCredential(), //If you only want to use MSI
+                "https://cognitiveservices.azure.com/.default");
+
+#pragma warning disable OPENAI001 // The overload accepting an AuthenticationPolicy is experimental and may change or be removed in future releases.
+            
+            client = new(
+                model: deploymentName,
+                authenticationPolicy: tokenPolicy,
+                options: new OpenAIClientOptions()
+                {
+                    Endpoint = new($"{endpoint}"),
+                });
+
+#pragma warning restore OPENAI001
+
+        }
 
         ChatCompletion completion = client.CompleteChat(chatMessages);
-        //[
-        //     new SystemChatMessage("You are a helpful assistant that talks like a pirate."),
-        //     new UserChatMessage("Hi, can you help me?"),
-        //     new AssistantChatMessage("Arrr! Of course, me hearty! What can I do for ye?"),
-        //     new UserChatMessage("What's the best way to train a parrot?"),
-        // ]);
 
         _logger.LogInformation($"Model={completion.Model}");
         foreach (ChatMessageContentPart contentPart in completion.Content)
