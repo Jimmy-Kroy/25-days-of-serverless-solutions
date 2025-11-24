@@ -1,5 +1,3 @@
-using Azure.AI.OpenAI;
-using Azure.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -32,6 +30,7 @@ public class GetJoke
         Connection = "CosmosDbConnectionString",
         SqlQuery = "SELECT TOP 1 * FROM c ORDER BY c.timestamp DESC")] IEnumerable<JokeConversationContext> records)
     {
+        ChatMessage[] chatMessages = Array.Empty<ChatMessage>();
         string joke = "In a twist of humor, today's joke is that there isn't one.";
         _logger.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -43,11 +42,45 @@ public class GetJoke
         else
         {
             _logger.LogInformation($"Found record with ID: {record.Id} and Timestamp: {record.Timestamp}");
-            ChatMessage[] chatMessages = GetChatCompletion(record);
+            chatMessages = GetChatCompletion(record);
             foreach (ChatMessage chatMessage in chatMessages) 
             {
                 _logger.LogInformation($"{chatMessage.GetType().ToString()}, {chatMessage.Content[0].Text}");
             }
+        }
+
+        //Use Joke Context and get new Joke from AI model.
+        // Read from configuration
+        string? endpoint = _configuration["JokeEndpoint"];
+        string? apiKey = _configuration["JokeApiKey"];
+        string? deploymentName = _configuration["DeploymentName"];
+        bool useApiKey = _configuration.GetValue<bool>("UseApiKey", false);
+
+        _logger.LogInformation($"Creating ChatClient using APIKEY!");
+        ChatClient client = new(
+            credential: new ApiKeyCredential(apiKey),
+            model: deploymentName,
+            options: new OpenAIClientOptions()
+            {
+                Endpoint = new($"{endpoint}"),
+            });
+
+        ChatCompletion completion = client.CompleteChat(chatMessages);
+        //[
+        //     new SystemChatMessage("You are a helpful assistant that talks like a pirate."),
+        //     new UserChatMessage("Hi, can you help me?"),
+        //     new AssistantChatMessage("Arrr! Of course, me hearty! What can I do for ye?"),
+        //     new UserChatMessage("What's the best way to train a parrot?"),
+        // ]);
+
+        _logger.LogInformation($"Model={completion.Model}");
+        foreach (ChatMessageContentPart contentPart in completion.Content)
+        {
+            string message = contentPart.Text;
+            joke = message;
+            _logger.LogInformation($"Chat Role: {completion.Role}");
+            _logger.LogInformation("Message:");
+            _logger.LogInformation(message);
         }
 
         return new OkObjectResult($"The joke of the day: {joke}");
