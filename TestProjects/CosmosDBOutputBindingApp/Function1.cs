@@ -43,6 +43,7 @@ public class Function1
             //string jsonContent = System.Text.Json.JsonSerializer.Serialize(conversation);
             //_logger.LogInformation("jsonContent: " + jsonContent);
 
+            _logger.LogInformation("App successfully stored document in Cosmos DB!");
             // Return both HTTP response and Cosmos DB document
             return new HttpCosmosBindingResult
             {
