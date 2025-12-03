@@ -1,5 +1,6 @@
 using Azure;
 using Azure.AI.OpenAI;
+using Azure.AI.OpenAI.Chat;
 using Azure.Identity;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +28,8 @@ public class GetJoke
     [Function("GetJoke")]
     public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
     {
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
+        _logger.LogInformation("GetJokeV2 C# HTTP trigger function processed a request.");
         string joke = "In a twist of humor, today's joke is that there isn't one.";
-        ChatClient? client = null;
 
         // Read from configuration
         string? endpoint = _configuration["JokeEndpoint"];
@@ -37,42 +37,36 @@ public class GetJoke
         string? deploymentName = _configuration["DeploymentName"];
         bool useApiKey = _configuration.GetValue<bool>("UseApiKey", false);
 
-        //if (useApiKey)
-        //{
-        //    _logger.LogInformation($"Creating ChatClient using APIKEY!");
-        //    client = new(
-        //        credential: new ApiKeyCredential(apiKey),
-        //        model: deploymentName,
-        //        options: new OpenAIClientOptions()
-        //        {
-        //            Endpoint = new($"{endpoint}"),
-        //        });
-        //}
-        //else
-        //{
-        //    _logger.LogInformation($"Creating ChatClient using System Assigned Identity!");
-        //    AzureOpenAIClient azureClient = new AzureOpenAIClient(
-        //        new Uri(endpoint),
-        //        new ManagedIdentityCredential());//DefaultAzureCredential());
-        //    client = azureClient.GetChatClient(deploymentName);
-        //}
-
-        _logger.LogInformation($"Creating ChatClient using System Assigned Identity!");
         AzureOpenAIClient azureClient = new AzureOpenAIClient(
             new Uri(endpoint),
-            new DefaultAzureCredential());//AzureKeyCredential(apiKey));
-        client = azureClient.GetChatClient(deploymentName);
+            new AzureKeyCredential(apiKey));
 
-        ChatCompletion completion = client.CompleteChat(GetChatCompletion());
+        ChatClient chatClient = azureClient.GetChatClient(deploymentName);
 
-        _logger.LogInformation($"Model={completion.Model}");
-        foreach (ChatMessageContentPart contentPart in completion.Content)
+        // Support for this recently-launched model with MaxOutputTokenCount parameter requires
+        // Azure.AI.OpenAI 2.2.0-beta.4 and SetNewMaxCompletionTokensPropertyEnabled
+        var requestOptions = new ChatCompletionOptions()
         {
-            joke = contentPart.Text;
-            _logger.LogInformation($"Chat Role: {completion.Role}");
-            _logger.LogInformation("Joke:");
-            _logger.LogInformation(joke);
-        }
+            MaxOutputTokenCount = 10000,
+        };
+
+        // The SetNewMaxCompletionTokensPropertyEnabled() method is an [Experimental] opt-in to use
+        // the new max_completion_tokens JSON property instead of the legacy max_tokens property.
+        // This extension method will be removed and unnecessary in a future service API version;
+        // please disable the [Experimental] warning to acknowledge.
+#pragma warning disable AOAI001
+        requestOptions.SetNewMaxCompletionTokensPropertyEnabled(true);
+#pragma warning restore AOAI001
+
+        List<ChatMessage> messages = new List<ChatMessage>()
+        {
+            new SystemChatMessage("You are a helpful assistant."),
+            new UserChatMessage("I am going to Paris, what should I see?")
+        };
+
+        var response = chatClient.CompleteChat(messages, requestOptions);
+
+        _logger.LogInformation($"Response: {response.Value.Content[0].Text}");
 
         return new OkObjectResult($"The joke of the day: {joke}");
     }
