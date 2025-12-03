@@ -29,6 +29,7 @@ public class GetJoke
     public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
     {
         _logger.LogInformation("GetJokeV2 C# HTTP trigger function processed a request.");
+        AzureOpenAIClient azureClient = null;
         string joke = "In a twist of humor, today's joke is that there isn't one.";
 
         // Read from configuration
@@ -37,9 +38,20 @@ public class GetJoke
         string? deploymentName = _configuration["DeploymentName"];
         bool useApiKey = _configuration.GetValue<bool>("UseApiKey", false);
 
-        AzureOpenAIClient azureClient = new AzureOpenAIClient(
-            new Uri(endpoint),
-            new AzureKeyCredential(apiKey));
+        if (useApiKey)
+        {
+            azureClient = new AzureOpenAIClient(
+                new Uri(endpoint),
+                new AzureKeyCredential(apiKey));
+        }
+        else
+        {
+            azureClient = new AzureOpenAIClient(
+                new Uri(endpoint),
+                //new DefaultAzureCredential(),
+                //"Cognitive Services OpenAI User" Added to foundry ai resource instead of foundry ai project.
+                new ManagedIdentityCredential()); //If you only want to use MSI
+        }
 
         ChatClient chatClient = azureClient.GetChatClient(deploymentName);
 
@@ -60,13 +72,15 @@ public class GetJoke
 
         List<ChatMessage> messages = new List<ChatMessage>()
         {
-            new SystemChatMessage("You are a helpful assistant."),
-            new UserChatMessage("I am going to Paris, what should I see?")
+            new SystemChatMessage("You are a funny comedian."),
+            new UserChatMessage("Tell me a joke.")
         };
 
         var response = chatClient.CompleteChat(messages, requestOptions);
 
-        _logger.LogInformation($"Response: {response.Value.Content[0].Text}");
+        joke = response.Value.Content[0].Text;
+
+        _logger.LogInformation($"Response: {joke}");
 
         return new OkObjectResult($"The joke of the day: {joke}");
     }

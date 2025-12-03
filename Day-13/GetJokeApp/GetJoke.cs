@@ -75,6 +75,7 @@ public class GetJoke
             _logger.LogInformation($"Creating ChatClient using Managed Service Identity (MSI)!");
             BearerTokenPolicy tokenPolicy = new(
                 //new DefaultAzureCredential(),
+                //"Cognitive Services OpenAI User" Added to foundry ai resource instead of foundry ai project.
                 new ManagedIdentityCredential(), //If you only want to use MSI
                 "https://cognitiveservices.azure.com/.default");
 
