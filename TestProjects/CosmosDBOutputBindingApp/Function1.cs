@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
@@ -14,7 +16,7 @@ public class Function1
         _logger = logger;
     }
 
-    [Function("Function1")]
+    [Function("CosmosDBOutputBindingFunction")]
     public async Task<HttpCosmosBindingResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
     {
         try
