@@ -19,7 +19,13 @@ public class JokeContextCreator
     }
 
     [Function(nameof(JokeContextCreator))]
-    public async Task Run([BlobTrigger("jokes-container/{name}", Connection = "AzureWebJobsStorage")] Stream stream, string name)
+    [CosmosDBOutput(
+        databaseName: "AiContextDB",
+        containerName: "AiContextContainer",
+        Connection = "CosmosDbConnectionString",
+        PartitionKey = "/id",
+        CreateIfNotExists = true)]
+    public async Task<ConversationContext> Run([BlobTrigger("jokes-container/{name}", Connection = "AzureWebJobsStorage")] Stream stream, string name)
     {
         using var blobStreamReader = new StreamReader(stream);
         var jokesContent = await blobStreamReader.ReadToEndAsync();
@@ -36,6 +42,8 @@ public class JokeContextCreator
 
         string json = JsonSerializer.Serialize(conversationContext, options);
         _logger.LogInformation($"\n\n{json}\n\n");
+
+        return conversationContext;
     }
 
     public static async Task<ConversationContext> CreateJokesContextAsync(string jokesContent)
