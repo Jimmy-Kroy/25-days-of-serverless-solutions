@@ -62,7 +62,7 @@ public class JokeContextCreator
                     new Message
                     {
                         Role = "system",
-                        Content = "You are a comedian who tells really funny jokes."
+                        Content = "You are a comedian who tells authentic jokes that are funny. You don't repeat the jokes you already have told!"
                     }
                 };
 

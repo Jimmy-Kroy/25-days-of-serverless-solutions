@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlobTriggerApp", "TestProje
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokeContextCreatorApp", "Day-13\JokeContextCreatorApp\JokeContextCreatorApp.csproj", "{D19CEA76-D5FD-4827-A8BE-C65AAE448043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JokeOfTheDayApp", "Day-13\JokeOfTheDayApp\JokeOfTheDayApp.csproj", "{5DA29382-79B6-4A8C-B867-5C23566C3E44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{D19CEA76-D5FD-4827-A8BE-C65AAE448043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D19CEA76-D5FD-4827-A8BE-C65AAE448043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D19CEA76-D5FD-4827-A8BE-C65AAE448043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DA29382-79B6-4A8C-B867-5C23566C3E44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DA29382-79B6-4A8C-B867-5C23566C3E44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DA29382-79B6-4A8C-B867-5C23566C3E44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DA29382-79B6-4A8C-B867-5C23566C3E44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
