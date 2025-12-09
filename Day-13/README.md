@@ -258,6 +258,8 @@ This project helps the thirteen Icelandic Yule Lads (Jólasveinar) modernize the
 
 ## 📚 Resources
 
+- [Azure Cosmos DB extension for Azure Functions update with AAD support](https://www.youtube.com/watch?v=w002dYaP9mw)
+- [Azure Functions developer guide](https://learn.microsoft.com/en-us/azure/azure-functions/functions-reference/)
 - [Azure Functions Documentation](https://docs.microsoft.com/azure/azure-functions/)
 - [Cosmos DB Output Binding](https://docs.microsoft.com/azure/azure-functions/functions-bindings-cosmosdb-v2-output)
 - [Managed Identity Configuration](https://docs.microsoft.com/azure/app-service/overview-managed-identity)
@@ -269,9 +271,9 @@ This project was created as part of a learning assignment.
 
 ---
 
-Made with 🎭 for the Icelandic Yule Lads
+Made with ❤️ for the Icelandic Yule Lads
 
----
+
 
 # 🎭 JokeOfTheDayApp - Azure Function Documentation
 
