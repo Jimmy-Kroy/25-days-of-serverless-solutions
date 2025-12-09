@@ -164,6 +164,14 @@ az cosmosdb sql role assignment create \
   --scope <cosmos-db-scope>
 ```
 
+### Verify Role Assignment
+
+```bash
+az cosmosdb sql role assignment list \
+  --resource-group DAY13-RG \
+  --account-name jokes-context-storage
+```
+
 Update environment variables:
 ```
 CosmosDbConnectionString__accountEndpoint: https://jokes-context-storage.documents.azure.com:443/
@@ -182,14 +190,6 @@ Update environment variables:
 AzureWebJobsStorage__accountName: jokesstorage
 AzureWebJobsStorage__blobServiceUri: https://jokesstorage.blob.core.windows.net/
 AzureWebJobsStorage__credential: managedIdentity
-```
-
-### Verify Role Assignment
-
-```bash
-az cosmosdb sql role assignment list \
-  --resource-group DAY13-RG \
-  --account-name jokes-context-storage
 ```
 
 ## 📊 Output Format
@@ -270,3 +270,309 @@ This project was created as part of a learning assignment.
 ---
 
 Made with 🎭 for the Icelandic Yule Lads
+
+---
+
+# 🎭 JokeOfTheDayApp - Azure Function Documentation
+
+> *An AI-powered joke generator for Iceland's Yule Lads, bringing machine learning magic to holiday traditions*
+
+---
+
+## 📖 Overview
+
+The **JokeOfTheDayApp** is an Azure Function that generates jokes using Azure AI Foundry. Inspired by Iceland's thirteen Yule Lads (Jólasveinar), this application combines traditional holiday folklore with modern AI technology to create unique jokes on demand.
+
+### 🎯 How It Works
+
+1. **HTTP Trigger** - The function is invoked via HTTP GET or POST request
+2. **Context Retrieval** - Fetches the most recent joke context from Azure Cosmos DB using an input binding
+3. **AI Generation** - Passes the context to an OpenAI model in Azure AI Foundry
+4. **Response** - Returns a freshly generated joke based on the learned style and context
+
+---
+
+## 🏗️ Architecture
+
+```
+HTTP Request → Azure Function → Cosmos DB (Context) → Azure AI Foundry → Generated Joke
+```
+
+### Core Components
+
+- **Azure Function App** - HTTP-triggered serverless function
+- **Azure Cosmos DB** - NoSQL database storing joke conversation contexts
+- **Azure AI Foundry** - OpenAI model deployment (gpt-5-nano)
+- **Managed Identity** - Secure authentication without API keys
+
+---
+
+## 🔧 Local Development Setup
+
+### Prerequisites
+
+- Visual Studio 2022
+- Azure Functions Core Tools
+- .NET (dotnet-isolated runtime)
+- Access to Azure subscription
+
+### Required NuGet Packages
+
+```xml
+<PackageReference Include="Azure.AI.OpenAI" Version="2.2.0-beta.4" />
+<PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.CosmosDB" />
+```
+
+### Configuration Steps
+
+#### 1️⃣ **Configure Local Settings**
+
+Create a `local.settings.json` file in your project root:
+
+```json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "JokeEndpoint": "https://day13foundry.cognitiveservices.azure.com/",
+    "JokeApiKey": "YOUR_API_KEY_HERE",
+    "DeploymentName": "gpt-5-nano",
+    "UseApiKey": "true",
+    "CosmosDbConnectionString": "YOUR_COSMOS_CONNECTION_STRING"
+  }
+}
+```
+
+#### 2️⃣ **Set Up Cosmos DB Input Binding**
+
+The function uses a Cosmos DB input binding to retrieve joke context:
+
+```csharp
+[CosmosDBInput(
+    databaseName: "AiContextDB",
+    containerName: "AiContextContainer",
+    Connection = "CosmosDbConnectionString",
+    SqlQuery = "SELECT TOP 1 * FROM c ORDER BY c.timestamp DESC")]
+IEnumerable<JokeConversationContext> records
+```
+
+#### 3️⃣ **Test Locally**
+
+- Press F5 in Visual Studio 2022
+- Navigate to the local endpoint (typically `http://localhost:7071/api/JokeOfTheDay`)
+- Verify joke generation works correctly
+
+---
+
+## ☁️ Azure Deployment
+
+### Step 1: Create Azure Resources
+
+#### **Create Function App**
+
+- **Plan Type**: Consumption Plan
+- **Runtime**: .NET (dotnet-isolated)
+- **Authentication**: Enable Basic Authentication for publishing from Visual Studio
+
+#### **Download Publish Profile**
+
+1. Navigate to your Function App in Azure Portal
+2. Click **"Get publish profile"**
+3. Save the `.publishsettings` file to your local machine
+
+### Step 2: Publish from Visual Studio
+
+1. Right-click your project in Visual Studio
+2. Select **"Publish"**
+3. Import the publish profile you downloaded
+4. Click **"Publish"** to deploy
+
+### Step 3: Configure Environment Variables
+
+Add the following application settings in Azure Portal:
+
+| Setting Name | Value |
+|-------------|-------|
+| `JokeEndpoint` | `https://day13foundry.cognitiveservices.azure.com/` |
+| `JokeApiKey` | Your Azure AI Foundry API key |
+| `DeploymentName` | `gpt-5-nano` |
+| `UseApiKey` | `true` |
+| `CosmosDbConnectionString` | Your Cosmos DB connection string |
+
+---
+
+## 🔐 Migration to Managed Identity (MSI)
+
+For production deployments, replace API keys with System Managed Identity for enhanced security.
+
+### Azure AI Foundry Configuration
+
+#### **1️⃣ Enable System Assigned Managed Identity**
+
+1. Go to your Function App in Azure Portal
+2. Navigate to **Identity** tab
+3. Turn **System assigned** status to **On**
+4. Save and copy the **Object (principal) ID**
+
+#### **2️⃣ Assign AI Role**
+
+1. Navigate to your **Azure AI Foundry resource** (not the project)
+2. Go to **Access Control (IAM)**
+3. Click **"Add role assignment"**
+4. Search for **"Cognitive Services OpenAI User"**
+5. Assign to **Managed Identity** → Select your Function App
+6. Click **"Review + assign"**
+
+#### **3️⃣ Update Environment Variable**
+
+Change `UseApiKey` to `false` in Function App settings
+
+### Cosmos DB Configuration
+
+#### **1️⃣ Get Cosmos DB Scope**
+
+Open Azure Cloud Shell and run:
+
+```bash
+az cosmosdb show \
+  --name jokes-context-storage \
+  --resource-group DAY13-RG \
+  --query id \
+  --output tsv
+```
+
+**Output:**
+```
+/subscriptions/4c136ca6-b580-4aa7-9d63-97bc9a3da353/resourceGroups/DAY13-RG/providers/Microsoft.DocumentDB/databaseAccounts/jokes-context-storage
+```
+
+#### **2️⃣ Assign Cosmos DB Reader Role**
+
+```bash
+az cosmosdb sql role assignment create \
+  --resource-group DAY13-RG \
+  --account-name jokes-context-storage \
+  --role-definition-name "Cosmos DB Built-in Data Reader" \
+  --principal-id 554b53c4-fc2c-4a46-ba80-dd89b63657c7 \
+  --scope /subscriptions/4c9b636-ba80-4717-9b63-97bc9a3da353/resourceGroups/DAY13-RG/providers/Microsoft.DocumentDB/databaseAccounts/jokes-context-storage
+```
+
+#### **3️⃣ Verify Role Assignment**
+
+```bash
+az cosmosdb sql role assignment list \
+  --resource-group DAY13-RG \
+  --account-name jokes-context-storage
+```
+
+#### **4️⃣ Update Connection String Settings**
+
+Replace the `CosmosDbConnectionString` with two new settings:
+
+| Setting Name | Value |
+|-------------|-------|
+| `CosmosDbConnectionString__accountEndpoint` | `https://jokes-context-storage.documents.azure.com:443/` |
+| `CosmosDbConnectionString__credential` | `managedidentity` |
+
+---
+
+## 📊 Data Model
+
+### JokeConversationContext
+
+The Cosmos DB stores conversation contexts with the following structure:
+
+```json
+{
+  "id": "unique-identifier",
+  "timestamp": "2024-12-09T10:30:00Z",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a funny comedian."
+    },
+    {
+      "role": "user",
+      "content": "Tell me a joke."
+    },
+    {
+      "role": "assistant",
+      "content": "Why did the Yule Lad cross the road?..."
+    }
+  ]
+}
+```
+
+---
+
+## 🎄 The Yule Lads Assignment
+
+This project was created as part of a holiday-themed assignment to modernize Iceland's Yule Lad traditions. The thirteen Yule Lads, each with distinct personalities, wanted to use machine learning to generate jokes for children they visit during the thirteen nights before Christmas.
+
+### The Tradition
+
+- **Kertasníkir** (Candle-Stealer) - Follows children to steal their candles
+- **Þvörusleikir** (Spoon-Licker) - Steals wooden spoons to lick food off them
+- **Jólakötturinn** (Christmas Cat) - The scary Christmas cat who devours children without new clothes
+
+Each night, children place shoes by the window. Nice children receive gifts, while naughty ones get rotting potatoes!
+
+---
+
+## 🔍 Key Features
+
+✨ **AI-Powered Joke Generation** - Uses Azure OpenAI models for creative content  
+🔒 **Secure Authentication** - Supports both API keys and Managed Identity  
+📦 **Context-Aware** - Learns from historical joke patterns in Cosmos DB  
+⚡ **Serverless Architecture** - Scales automatically with Azure Functions  
+🎯 **Simple HTTP API** - Easy integration with any client application  
+
+---
+
+## 🚀 Testing Your Deployment
+
+### Local Testing
+```bash
+curl http://localhost:7071/api/JokeOfTheDay
+```
+
+### Azure Testing
+```bash
+curl https://your-function-app.azurewebsites.net/api/JokeOfTheDay
+```
+
+**Expected Response:**
+```json
+"The joke of the day: [Your AI-generated joke here]"
+```
+
+---
+
+## 📝 Code Reference
+
+The main function signature:
+
+```csharp
+[Function("JokeOfTheDay")]
+public IActionResult Run(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req,
+    [CosmosDBInput(
+        databaseName: "AiContextDB",
+        containerName: "AiContextContainer",
+        Connection = "CosmosDbConnectionString",
+        SqlQuery = "SELECT TOP 1 * FROM c ORDER BY c.timestamp DESC")] 
+    IEnumerable<JokeConversationContext> records)
+```
+
+---
+
+## 🎁 Summary
+
+The JokeOfTheDayApp successfully brings Iceland's Yule Lad traditions into the modern age by leveraging Azure's cloud services and AI capabilities. By combining Azure Functions, Cosmos DB, and Azure AI Foundry with secure Managed Identity authentication, we've created a scalable, secure, and festive joke generation service.
+
+**Happy Holidays! 🎄✨**
+
+---
+
+*Created with ❤️ for the thirteen Yule Lads of Iceland*
