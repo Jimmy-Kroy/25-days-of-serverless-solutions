@@ -362,3 +362,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Day-13/GetJokeApp/local.settings.json
+/TestProjects/MultiAiAgentApp/appsettings.json
+/TestProjects/MultiAiAgentApp/Program.cs
+/TestProjects/MultiAiAgentApp/Program.cs
