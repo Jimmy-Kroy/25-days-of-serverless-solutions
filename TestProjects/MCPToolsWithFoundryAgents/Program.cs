@@ -1,5 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+/*
+References
+https://learn.microsoft.com/en-us/agent-framework/user-guide/model-context-protocol/using-mcp-with-foundry-agents?pivots=programming-language-csharp
+https://microsoftlearning.github.io/mslearn-ai-agents/Instructions/03c-use-agent-tools-with-mcp.html
+*/
 
 using Azure.AI.Agents.Persistent;
 using Azure.Identity;
@@ -17,8 +22,12 @@ Console.WriteLine("App started!");
 Console.WriteLine($"endpoint: {endpoint}");
 Console.WriteLine($"model: {model}");
 
-const string AgentName = "MicrosoftLearnAgent";
-const string AgentInstructions = "You answer questions by searching the Microsoft Learn content only.";
+//const string AgentName = "MicrosoftLearnAgent";
+//const string AgentInstructions = "You answer questions by searching the Microsoft Learn content only.";
+
+const string AgentName = "my-mcp-agent";
+const string AgentInstructions = "You have access to an MCP server called `microsoft.docs.mcp` - this tool allows you to search through Microsoft's latest official documentation. Use the available MCP tools to answer questions and perform tasks.";
+
 
 var mcpTool = new MCPToolDefinition(
     serverLabel: "microsoft_learn",
