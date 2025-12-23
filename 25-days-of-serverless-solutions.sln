@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MCPToolsWithFoundryAgents",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IotHubClientApp", "Day-17\IotHubClientApp\IotHubClientApp.csproj", "{DF2CF047-99B2-42F5-8B94-030EE08F4913}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAFClientApp", "TestProjects\MAFClientApp\MAFClientApp.csproj", "{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{DF2CF047-99B2-42F5-8B94-030EE08F4913}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF2CF047-99B2-42F5-8B94-030EE08F4913}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF2CF047-99B2-42F5-8B94-030EE08F4913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
