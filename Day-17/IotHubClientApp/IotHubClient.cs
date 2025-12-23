@@ -2,6 +2,7 @@ using System;
 using Azure.Messaging.EventHubs;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace IotHubClientApp;
 public class IotHubClient
@@ -22,12 +23,19 @@ public class IotHubClient
 
     [Function(nameof(IotHubClient))]
     //public void Run([EventHubTrigger("messages/events", Connection = "EventHubConnection")] EventData[] events)
-    public void Run([EventHubTrigger("beach-temp-station01", Connection = "EventHubConnection")] EventData[] events)
+    public void Run([EventHubTrigger("beach-temp-station01", Connection = "EventHubConnection")] Azure.Messaging.EventHubs.EventData[] events)
     {
-        foreach (EventData @event in events)
+        foreach (Azure.Messaging.EventHubs.EventData @event in events)
         {
-            _logger.LogInformation("Event Body: {body}", @event.Body);
-            _logger.LogInformation("Event Content-Type: {contentType}", @event.ContentType);
+            //_logger.LogInformation("Event Body: {body}", @event.Body);
+           // _logger.LogInformation("Event Content-Type: {contentType}", @event.ContentType);
+            //{"messageId":7,"deviceId":"Raspberry Pi Web Client","temperature":23.55559984381113,"humidity":79.56068940246415}
+            SensorData data = JsonSerializer.Deserialize<SensorData>(@event.Body.ToArray());
+            
+            if(data.temperature > 30)
+            {
+                _logger.LogInformation($"Its beach time,Temperature: {data.temperature}, Humidity: {data.humidity}");
+            }
         }
 
         /*
@@ -35,6 +43,13 @@ public class IotHubClient
         [2025-12-22T19:36:08.763Z] Event Body: System.ReadOnlyMemory<Byte>[114]
         [2025-12-22T19:36:08.766Z] Event Content-Type: (null)
         */
-
     }
+}
+
+public class SensorData
+{
+    public int messageId { get; set; }
+    public string deviceId { get; set; }
+    public double temperature { get; set; }
+    public double humidity { get; set; }
 }
