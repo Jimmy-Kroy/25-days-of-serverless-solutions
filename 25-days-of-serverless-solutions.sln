@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IotHubClientApp", "Day-17\I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAFClientApp", "TestProjects\MAFClientApp\MAFClientApp.csproj", "{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgentOrchestrationMultiLanguageTranslator", "TestProjects\AgentOrchestrationMultiLanguageTranslator\AgentOrchestrationMultiLanguageTranslator.csproj", "{9FD297BE-67B1-4A12-A292-211BF6C5F671}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,10 @@ Global
 		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB4DD2F1-AE6B-4798-97F6-B047F5783E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD297BE-67B1-4A12-A292-211BF6C5F671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD297BE-67B1-4A12-A292-211BF6C5F671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD297BE-67B1-4A12-A292-211BF6C5F671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD297BE-67B1-4A12-A292-211BF6C5F671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
