@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /TestProjects/MultiAiAgentApp/appsettings.json
 /TestProjects/MultiAiAgentApp/Program.cs
 /TestProjects/MultiAiAgentApp/Program.cs
+/TestProjects/a2a-example01/appsettings.Development.json
+/TestProjects/a2a-example01/appsettings.json

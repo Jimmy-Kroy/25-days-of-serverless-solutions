@@ -1,0 +1,2 @@
+data: {"kind":"message","role":"agent","parts":[{"kind":"text","text":"Arrr, matey! I've been sailin' the high seas o' knowledge, plunderin' the depths o' books, scrolls, n' tales from yon internet oceans! Me ship's been anchored in ports o' wisdom, chartin' maps o' history n' lore. Tell me, where be ye wantin' me adventures to take ye? Yarrr! \uD83C\uDFF4‍☠️"}],"messageId":"chatcmpl-CuKW2JGwe7TAY1wpRVaNj9c2SaplJ","contextId":"foo"}
+
