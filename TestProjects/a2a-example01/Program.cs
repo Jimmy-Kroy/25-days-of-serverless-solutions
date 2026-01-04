@@ -24,13 +24,6 @@ string deploymentName = builder.Configuration["AZURE_OPENAI_DEPLOYMENT_NAME"]
 
 Console.WriteLine($"endpoint: {endpoint}, deploymentName: {deploymentName}");
 
-// Register the chat client
-//IChatClient chatClient = new AzureOpenAIClient(
-//        new Uri(endpoint),
-//        new DefaultAzureCredential())
-//    .GetChatClient(deploymentName)
-//    .AsIChatClient();
-
 AzureOpenAIClient azureClient = new(
     new Uri(endpoint),
     new AzureCliCredential());
@@ -41,6 +34,9 @@ builder.Services.AddSingleton(chatClient);
 
 // Register an agent
 var pirateAgent = builder.AddAIAgent("pirate", instructions: "You are a pirate. Speak like a pirate.");
+//Exposing Multiple Agents
+var mathAgent = builder.AddAIAgent("math", instructions: "You are a math expert.");
+var scienceAgent = builder.AddAIAgent("science", instructions: "You are a science expert.");
 
 var app = builder.Build();
 
@@ -55,5 +51,20 @@ app.MapA2A(pirateAgent, path: "/a2a/pirate", agentCard: new()
     Description = "An agent that speaks like a pirate.",
     Version = "1.0"
 });
+
+app.MapA2A(mathAgent, path: "/a2a/math", agentCard: new()
+{
+    Name = "Math Agent",
+    Description = "An agent that is a Math expert.",
+    Version = "1.0"
+});
+
+app.MapA2A(scienceAgent, path: "/a2a/science", agentCard: new()
+{
+    Name = "Science Agent",
+    Description = "An agent that is a science expert.",
+    Version = "1.0"
+});
+
 
 app.Run();
