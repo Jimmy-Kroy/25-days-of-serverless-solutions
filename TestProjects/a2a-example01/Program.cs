@@ -1,7 +1,10 @@
 /*
+    Reference: https://learn.microsoft.com/en-us/agent-framework/user-guide/hosting/agent-to-agent-integration?tabs=dotnet-cli%2Cuser-secrets
 
+    
     The swagger service can be accessed via the url: https://localhost:7114/swagger/index.html
-*/
+    The weatherforcast API can be accessed via the url: https://localhost:7114/weatherforecast
+ */
 
 
 
@@ -14,6 +17,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
@@ -39,6 +43,11 @@ var mathAgent = builder.AddAIAgent("math", instructions: "You are a math expert.
 var scienceAgent = builder.AddAIAgent("science", instructions: "You are a science expert.");
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
 
 app.MapOpenApi();
 app.UseSwagger();
@@ -66,5 +75,10 @@ app.MapA2A(scienceAgent, path: "/a2a/science", agentCard: new()
     Version = "1.0"
 });
 
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
 
 app.Run();
