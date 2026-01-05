@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAgentExample", "AIAgentEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A2ASimpleClient", "A2ASimpleClient\A2ASimpleClient.csproj", "{B925A45A-D41A-49E5-9957-263275E282B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoAgent", "TestProjects\EchoAgent\EchoAgent.csproj", "{7691B42F-3182-43D9-B341-B2D82870DDA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +185,10 @@ Global
 		{B925A45A-D41A-49E5-9957-263275E282B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B925A45A-D41A-49E5-9957-263275E282B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B925A45A-D41A-49E5-9957-263275E282B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7691B42F-3182-43D9-B341-B2D82870DDA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7691B42F-3182-43D9-B341-B2D82870DDA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7691B42F-3182-43D9-B341-B2D82870DDA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7691B42F-3182-43D9-B341-B2D82870DDA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

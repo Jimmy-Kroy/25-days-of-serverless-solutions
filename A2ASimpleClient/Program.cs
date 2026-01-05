@@ -47,8 +47,9 @@ public class Program
         // Define our agent endpoints
         var agents = new[]
         {
-            new { Name = "Echo Agent", Url = "http://localhost:5001/" },
-            new { Name = "Calculator Agent", Url = "http://localhost:5002/" }
+            //new { Name = "Echo Agent", Url = "http://localhost:5001/" },
+            //new { Name = "Calculator Agent", Url = "http://localhost:5002/" }
+            new { Name = "My Echo Agent", Url = "http://localhost:5000/" }
         };
 
         foreach (var agentInfo in agents)

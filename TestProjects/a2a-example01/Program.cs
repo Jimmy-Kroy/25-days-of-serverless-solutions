@@ -42,6 +42,9 @@ var pirateAgent = builder.AddAIAgent("pirate", instructions: "You are a pirate. 
 var mathAgent = builder.AddAIAgent("math", instructions: "You are a math expert.");
 var scienceAgent = builder.AddAIAgent("science", instructions: "You are a science expert.");
 
+//Echo client
+var echoAgent = builder.AddAIAgent("Echo", instructions: "You are an agent that echoes back any message you send to it.");
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -74,6 +77,14 @@ app.MapA2A(scienceAgent, path: "/a2a/science", agentCard: new()
     Description = "An agent that is a science expert.",
     Version = "1.0"
 });
+
+app.MapA2A(echoAgent, path: "/a2a/echo", agentCard: new()
+{
+    Name = "Echo Agent",
+    Description = "A basic agent that echoes back any message you send to it. Perfect for testing A2A communication.",
+    Version = "1.0"
+});
+
 
 app.UseHttpsRedirection();
 
