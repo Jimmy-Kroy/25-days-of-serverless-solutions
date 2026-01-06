@@ -2,6 +2,16 @@ using A2A;
 
 namespace SimpleClient;
 
+/*
+
+References:
+
+Source:
+https://github.com/mikeas1/a2a-samples/tree/a4479105d4e5f396951640ddeb36f8917b128772/samples/dotnet/BasicA2ADemo
+
+*/
+
+
 /// <summary>
 /// A simple client that demonstrates how to communicate with A2A agents.
 /// This shows the basic patterns for agent discovery and communication.

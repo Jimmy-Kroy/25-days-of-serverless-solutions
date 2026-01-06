@@ -1,5 +1,14 @@
 using A2A;
 
+/*
+
+References:
+
+Source:
+https://github.com/mikeas1/a2a-samples/tree/a4479105d4e5f396951640ddeb36f8917b128772/samples/dotnet/BasicA2ADemo
+
+*/
+
 namespace EchoServer;
 
 /// <summary>
