@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient", "TestProject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AITextAnalyticsDemo", "TestProjects\AITextAnalyticsDemo\AITextAnalyticsDemo.csproj", "{A4D2EA5A-6763-4404-9225-CB0C321923E0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AITranslationDemo", "TestProjects\AITranslationDemo\AITranslationDemo.csproj", "{B280F149-2CAD-4898-92CC-4601C3722676}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +203,10 @@ Global
 		{A4D2EA5A-6763-4404-9225-CB0C321923E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4D2EA5A-6763-4404-9225-CB0C321923E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4D2EA5A-6763-4404-9225-CB0C321923E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B280F149-2CAD-4898-92CC-4601C3722676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B280F149-2CAD-4898-92CC-4601C3722676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B280F149-2CAD-4898-92CC-4601C3722676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B280F149-2CAD-4898-92CC-4601C3722676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
