@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AISpeechDemo", "TestProject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIImageAnalysisDemo", "TestProjects\AIImageAnalysisDemo\AIImageAnalysisDemo.csproj", "{F7708692-DBF3-4AD9-BFE0-3564A6A3A32F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIFaceDemo", "TestProjects\AIFaceDemo\AIFaceDemo.csproj", "{0416671E-8C2E-4F6E-B7FD-46187728768E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -219,6 +221,10 @@ Global
 		{F7708692-DBF3-4AD9-BFE0-3564A6A3A32F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7708692-DBF3-4AD9-BFE0-3564A6A3A32F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7708692-DBF3-4AD9-BFE0-3564A6A3A32F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0416671E-8C2E-4F6E-B7FD-46187728768E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0416671E-8C2E-4F6E-B7FD-46187728768E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0416671E-8C2E-4F6E-B7FD-46187728768E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0416671E-8C2E-4F6E-B7FD-46187728768E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
